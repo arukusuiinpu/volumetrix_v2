@@ -1,0 +1,3 @@
+C:/Users/student/CLionProjects/volumetrix/cmake-build-debug/CMakeFiles/volumetrix.dir
+C:/Users/student/CLionProjects/volumetrix/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/student/CLionProjects/volumetrix/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -2,6 +2,19 @@ import os
 from flask import Flask, request, redirect, url_for, render_template_string, jsonify, make_response
 import subprocess
 
+REPO_URL = "https://github.com/arukusuiinpu/volumetrix_v2"
+
+def update_repo():
+    try:
+        if not os.path.exists(".git"):
+            subprocess.check_output(f"git clone {REPO_URL} .", shell=True)
+        else:
+            subprocess.check_output("git fetch --all && git reset --hard origin/main", shell=True)
+        return True
+    except Exception as e:
+        print(f"Update failed: {e}")
+        return False
+
 app = Flask(__name__)
 
 MODELS_DIR = "./models"

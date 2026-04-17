@@ -145,7 +145,7 @@ struct Vector3 {
         return !std::isnan(x);
     }
 
-    double magnitude() {
+    double magnitude() const {
         return x * x + y * y + z * z;
     }
 };
@@ -507,7 +507,7 @@ public:
                   ((float)rawGZ / GYRO_SENSITIVITY_250DPS) * (M_PI / 180.0f),
                 };
 
-                std::cout << "Angles: " << raw_gyro.x << ", " << raw_gyro.y << ", " << raw_gyro.z << std::endl;
+                std::cout << "Gyro: " << raw_gyro.magnitude() << std::endl;
 
                 const float GYRO_DEADZONE = 0.05f;
 

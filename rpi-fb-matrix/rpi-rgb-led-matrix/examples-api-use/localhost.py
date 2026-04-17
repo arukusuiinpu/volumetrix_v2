@@ -2,14 +2,30 @@ import os
 from flask import Flask, request, redirect, url_for, render_template_string, jsonify, make_response
 import subprocess
 
-REPO_URL = "https://github.com/arukusuiinpu/volumetrix_v2"
+REPO_URL = "https://github.com/arukusuiinpu/volumetrix_v2.git"
+TARGET_DIR = "/opt/volumetrix"
+
+GIT_DIR = os.path.join(TARGET_DIR, ".git")
 
 def update_repo():
     try:
-        if not os.path.exists(".git"):
-            subprocess.check_output(f"git clone {REPO_URL} .", shell=True)
+        if not os.path.exists(GIT_DIR):
+            print(f"Initializing {TARGET_DIR} as a git repo...")
+            if not os.path.exists(TARGET_DIR):
+                os.makedirs(TARGET_DIR)
+        
+            commands = [
+                f"git -C {TARGET_DIR} init",
+                f"git -C {TARGET_DIR} remote add origin {REPO_URL}",
+                f"git -C {TARGET_DIR} fetch --all",
+                f"git -C {TARGET_DIR} reset --hard origin/main",
+                f"git -C {TARGET_DIR} config init.defaultBranch main"
+            ]
+            for cmd in commands:
+                subprocess.check_output(cmd, shell=True)
         else:
-            subprocess.check_output("git fetch --all && git reset --hard origin/main", shell=True)
+            print("Updating existing repository...")
+            subprocess.check_output(f"git -C {TARGET_DIR} fetch --all && git -C {TARGET_DIR} reset --hard origin/main", shell=True)
         return True
     except Exception as e:
         print(f"Update failed: {e}")
@@ -249,6 +265,8 @@ def reset_imu():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
+    update_repo()
+    
     if not os.path.exists(MODELS_DIR):
         os.makedirs(MODELS_DIR)
     app.run(host='0.0.0.0', port=5000)

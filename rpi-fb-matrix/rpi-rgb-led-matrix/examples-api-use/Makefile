@@ -1,4 +1,4 @@
-CFLAGS=-Wall -O3 -march=native -mtune=native -flto=2 -g -Wextra -Wno-unused-parameter
+CFLAGS=-Wall -O3 -march=native -mtune=native -g -Wextra -Wno-unused-parameter
 CXXFLAGS=$(CFLAGS)
 OBJECTS=demo-main.o
 BINARIES=demo
@@ -10,7 +10,7 @@ RGB_INCDIR=$(RGB_LIB_DISTRIBUTION)/include
 RGB_LIBDIR=$(RGB_LIB_DISTRIBUTION)/lib
 RGB_LIBRARY_NAME=rgbmatrix
 RGB_LIBRARY=$(RGB_LIBDIR)/lib$(RGB_LIBRARY_NAME).a
-LDFLAGS+= -flto=2 -L$(RGB_LIBDIR) -l$(RGB_LIBRARY_NAME) -lrt -lm -lpthread
+LDFLAGS+= -L$(RGB_LIBDIR) -l$(RGB_LIBRARY_NAME) -lrt -lm -lpthread
 
 # To compile image-example
 MAGICK_CXXFLAGS?=$(shell GraphicsMagick++-config --cppflags --cxxflags)

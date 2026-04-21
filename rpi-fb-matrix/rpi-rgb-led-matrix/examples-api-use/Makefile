@@ -48,10 +48,10 @@ c-example : c-example.o $(RGB_LIBRARY)
 	$(CC) $< -o $@ $(LDFLAGS) -lstdc++
 
 %.o : %.cc
-	$(CXX) -I$(RGB_INCDIR) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) -I$(RGB_INCDIR) $(CXXFLAGS) -c -o $@ -lpigpio $<
 
 %.o : %.c
-	$(CC) -I$(RGB_INCDIR) $(CFLAGS) -c -o $@ $<
+	$(CC) -I$(RGB_INCDIR) $(CFLAGS) -c -o $@ -lpigpio $<
 
 clean:
 	rm -f $(OBJECTS) $(BINARIES)

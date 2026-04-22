@@ -37,7 +37,6 @@
 #include <ostream>
 #include <thread>
 #include <vector>
-#include <pigpio.h>
 
 using std::min;
 using std::max;
